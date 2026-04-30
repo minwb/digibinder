@@ -1,0 +1,17 @@
+Aplicação de POO no DigiBinder:
+
+- Encapsulamento e Proteção de Dados
+O encapsulamento foi aplicado em todas as classes do pacote 'model' (Album, Grupo, Photocard, Binder, etc.). 
+Todos os atributos são privados (private) e acessados estritamente via métodos Getters e Setters. Isso garante que o estado dos objetos não seja alterado de forma indevida. Além disso, as regras de negócio e validações foram isoladas nas classes 'Controller', que atuam como uma barreira antes que qualquer dado chegue às classes DAO (Data Access Object) para persistência.
+
+- Herança e Polimorfismo 
+A herança foi fundamental para a reusabilidade de código, especialmente na interface gráfica (View). Em vez de repetir configurações visuais, foram criadas classes base como 'RoundedPanel' (que herda de JPanel) e 'StyledButton' (que herda de JButton). Qualquer nova tela que precise de um botão estilizado ou painel arredondado apenas instancia essas classes, reaproveitando todo o comportamento de pintura (paintComponent) e listeners de mouse.
+Na camada de erros, o polimorfismo foi aplicado através da criação de uma exceção base 'DigibinderException' (que herda de Exception), da qual derivam exceções específicas como 'DatabaseException' e 'ValidationException'. Isso permite que as telas tratem os erros de forma genérica ou específica conforme a necessidade.
+
+- Manutenibilidade
+O uso do padrão DAO e da arquitetura MVC torna o sistema altamente manutenível. A View apenas conversa com os Controller, e os Controllers não sabem como a tela é desenhada, apenas validam dados e chamam os DAOs. Se futuramente o banco de dados mudar de PostgreSQL para MySQL, apenas as classes do pacote 'database' precisarão ser alteradas, sem quebrar nenhuma tela do usuário ou regra de negócio.
+
+- Padrões de Projeto
+Foi utilizado o padrão Singleton na classe 'DatabaseConnection', garantindo que apenas uma conexão com o banco de dados seja instanciada e reutilizada por todos os DAOs durante a execução do programa.
+
+A aplicação utiliza estritamente das regras de POO, que garante que o DigiBinder seja um software modular. Dessa forma, novas funcionalidades  podem ser implementadas apenas estendendo as classes base existentes, sem a necessidade de reescrever ou alterar drasticamente o código legado.
